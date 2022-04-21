@@ -1,0 +1,2 @@
+# test_shop_crud_methods
+test_shop_crud_copy
