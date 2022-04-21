@@ -68,6 +68,22 @@ export const handleDeleteCategory = documentID => {
   });
 }
 
+export const handleUpdateCategory = documentID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('categories')
+      .doc(documentID)
+      .update()
+      .then(() => {
+        console.log(documentID, 2)
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
 export const handleFetchCategory = (categoryID) => {
   return new Promise((resolve, reject) => {
     firestore

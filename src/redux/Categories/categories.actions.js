@@ -20,6 +20,11 @@ export const deleteCategoryStart = categoryID => ({
   payload: categoryID
 });
 
+export const updateCategoryStart = categoryID => ({
+  type: categoriesTypes.DELETE_CATEGORY_START,
+  payload: categoryID
+});
+
 export const fetchCategoryStart = categoryID => ({
   type: categoriesTypes.FETCH_CATEGORY_START,
   payload: categoryID

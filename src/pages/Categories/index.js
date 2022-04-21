@@ -21,7 +21,8 @@ const Categories = props => {
   const { categories } = useSelector(mapState);
   const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
-  // const [productCategory, setProductCategory] = useState('mens');
+  const [hideModalUpdate, setHideModalUpdate] = useState(true);
+  const [newCategory, setNewCategory] = useState('mens');
   const [categoryName, setCategoryName] = useState('');
   // const [productName, setProductName] = useState('');
 
@@ -37,22 +38,28 @@ const Categories = props => {
   useEffect(() => {
     dispatch(
       fetchCategoriesStart()
-    //   fetchCategoriesStart()
+      //   fetchCategoriesStart()
     );
   }, []);
 
   const toggleModal = () => setHideModal(!hideModal);
+  const toggleModalUpdate = () => setHideModalUpdate(!hideModalUpdate);
 
   const configModal = {
     hideModal,
     toggleModal
   };
+  const configModalUpdate = {
+    hideModalUpdate,
+    toggleModalUpdate
+  };
 
   const resetForm = () => {
     setHideModal(true);
+    setHideModalUpdate(true);
     // setProductCategory('mens');
     setCategoryName('');
-    // setNewCategory('');
+    setNewCategory('');
     // setProductThumbnail('');
     // setProductPrice(0);
     // setProductDesc('');
@@ -66,13 +73,41 @@ const Categories = props => {
         // addCategoryStart({
         // productCategory,
         categoryName,
-        // newCategory,
+        newCategory,
         // productThumbnail,
         // productPrice,
         // productDesc,
       })
     );
     resetForm();
+
+  };
+
+  const resetFormUpdate = () => {
+    setHideModalUpdate(true);
+    // setProductCategory('mens');
+    setCategoryName('');
+    setNewCategory('');
+    // setProductThumbnail('');
+    // setProductPrice(0);
+    // setProductDesc('');
+  };
+
+  const handleSubmitUpdate = e => {
+    e.preventDefault();
+
+    dispatch(
+      addCategoryStart({
+        // addCategoryStart({
+        // productCategory,
+        categoryName,
+        newCategory,
+        // productThumbnail,
+        // productPrice,
+        // productDesc,
+      })
+    );
+    resetFormUpdate();
 
   };
 
@@ -108,7 +143,7 @@ const Categories = props => {
           <form onSubmit={handleSubmit}>
 
             <h2>
-              Add new category
+              Category
             </h2>
 
             {/* <FormSelect
@@ -143,7 +178,6 @@ const Categories = props => {
               value={productThumbnail}
               handleChange={e => setProductThumbnail(e.target.value)}
             />
-
             <FormInput
               label="Price"
               type="number"
@@ -168,6 +202,81 @@ const Categories = props => {
         </div>
       </Modal>
 
+
+      <div className="callToActionsUpdate">
+        <ul>
+          <li>
+            <Button onClick={() => toggleModalUpdate()}>
+              Update
+            </Button>
+          </li>
+        </ul>
+      </div>
+
+      <ModalUpdate {...configModalUpdate}>
+        <div className="addUpdateForm">
+          <form onSubmit={handleSubmitUpdate}>
+
+            <h2>
+              Update Category Method
+            </h2>
+
+            {/* <FormSelect
+              label="Category"
+              options={[{
+                value: "mens",
+                name: "Mens"
+              }, {
+                value: "womens",
+                name: "Womens"
+              }]}
+              handleChange={e => setProductCategory(e.target.value)}
+            /> */}
+
+            <FormInput
+              label="Update"
+              type="text"
+              value={categoryName}
+              handleChange={e => setCategoryName(e.target.value)}
+            />
+
+            {/* <FormInput
+              label="NewCategory"
+              type="text"
+              value={newCategory}
+              handleChange={e => setNewCategory(e.target.value)}
+            /> */}
+
+            {/* <FormInput
+              label="Main image URL"
+              type="url"
+              value={productThumbnail}
+              handleChange={e => setProductThumbnail(e.target.value)}
+            />
+            <FormInput
+              label="Price"
+              type="number"
+              min="0.00"
+              max="10000.00"
+              step="0.01"
+              value={productPrice}
+              handleChange={e => setProductPrice(e.target.value)}
+            /> */}
+
+            {/* <CKEditor
+              onChange={evt => setProductDesc(evt.editor.getData())}
+            /> */}
+
+            <br />
+
+            <Button type="submit">
+              Update Category
+            </Button>
+
+          </form>
+        </div>
+      </ModalUpdate>
+
       <div className="manageProducts">
 
         <table border="0" cellPadding="0" cellSpacing="0">
@@ -175,7 +284,7 @@ const Categories = props => {
             <tr>
               <th>
                 <h1>
-                  Add/ Delete/ Upate Categories 
+                  Add/ Delete/ Upate Categories
                 </h1>
               </th>
             </tr>
@@ -202,14 +311,19 @@ const Categories = props => {
                           {/* <td>
                             £{productPrice}
                           </td> */}
-                          
+
                           <td>
                             <Button onClick={() => dispatch(deleteCategoryStart(documentID))}>
                               Delete
                             </Button>
                           </td>
-                          <td>
+                          {/* <td>
                             <Button onClick={() => dispatch(deleteCategoryStart(documentID))}>
+                              Update
+                            </Button>
+                          </td> */}
+                          <td>
+                            <Button onClick={() => toggleModalUpdate()}>
                               Update
                             </Button>
                           </td>

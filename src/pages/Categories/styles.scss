@@ -21,6 +21,27 @@
       }
   
     }
+
+    .callToActionsUpdate {
+      display: inline-block;
+      width: 100%;
+      padding: 0;
+      margin: 0 auto;
+  
+      ul, li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+  
+      ul {
+        li {
+          display: inline-block;
+  
+        }
+      }
+  
+    }
   }
   
   .manageCategories {
