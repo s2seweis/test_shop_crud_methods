@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductStart, fetchProductsStart, deleteProductStart } from './../../redux/Products/products.actions';
 
-import { addCategoryStart, fetchCategoriesStart, deleteCategoryStart } from './../../redux/Categories/categories.actions';
+import { addCategoryStart, fetchCategoriesStart, deleteCategoryStart, updateCategoryStart } from './../../redux/Categories/categories.actions';
 
 import Modal from './../../components/Modal';
 import ModalUpdate from './../../components/ModalUpdate';
@@ -26,6 +26,8 @@ const Categories = props => {
   const [categoryName, setCategoryName] = useState('');
   // const [productName, setProductName] = useState('');
 
+  const [updateCategory, setUpdateCategory] = useState('');
+
 
 
 
@@ -38,7 +40,7 @@ const Categories = props => {
   useEffect(() => {
     dispatch(
       fetchCategoriesStart()
-      //   fetchCategoriesStart()
+      //   updateCategoriesStart()
     );
   }, []);
 
@@ -77,7 +79,7 @@ const Categories = props => {
         // productThumbnail,
         // productPrice,
         // productDesc,
-      })
+      }),
     );
     resetForm();
 
@@ -88,6 +90,7 @@ const Categories = props => {
     // setProductCategory('mens');
     setCategoryName('');
     setNewCategory('');
+    setUpdateCategory('');
     // setProductThumbnail('');
     // setProductPrice(0);
     // setProductDesc('');
@@ -105,7 +108,10 @@ const Categories = props => {
         // productThumbnail,
         // productPrice,
         // productDesc,
-      })
+      }),
+      updateCategoryStart([
+        updateCategory,
+      ]),
     );
     resetFormUpdate();
 
@@ -237,7 +243,7 @@ const Categories = props => {
               label="Update"
               type="text"
               value={categoryName}
-              handleChange={e => setCategoryName(e.target.value)}
+              handleChange={e => setUpdateCategory(e.target.value)}
             />
 
             {/* <FormInput
